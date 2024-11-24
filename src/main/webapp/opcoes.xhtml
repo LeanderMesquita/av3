@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Opções do Sistema</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+    <h:form id="opcoesForm">
+        <h:panelGrid columns="2" cellpadding="5" styleClass="ui-panelgrid-blank">
+            <h:outputLabel value="Visualizar Usuários:" />
+            <p:commandButton value="Ir" action="listagem_usuarios?faces-redirect=true" />
+
+            <h:outputLabel value="Cadastrar Usuário:" />
+            <p:commandButton value="Ir" action="cadastrarUsuario?faces-redirect=true" />
+
+            <h:outputLabel value="Editar Usuário:" />
+            <p:commandButton value="Ir" action="editarUsuario?faces-redirect=true" />
+
+            <h:outputLabel value="Excluir Usuário:" />
+            <p:commandButton value="Ir" action="excluirUsuario?faces-redirect=true" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="1" cellpadding="5" style="margin-top:20px;">
+            <h:outputLabel value="Sair do Sistema:" />
+            <p:commandButton value="Logout" action="login?faces-redirect=true" />
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

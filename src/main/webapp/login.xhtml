@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login - Sistema JSF</title>
+    <h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+    <h:form id="loginForm">
+        <h:panelGrid columns="2" cellpadding="5" styleClass="ui-panelgrid-blank">
+            <h:outputLabel for="username" value="Usuário:" />
+            <p:inputText id="username" value="#{usuarioBean.user.login}" required="true" requiredMessage="Por favor, insira o usuário." label="Usuário" />
+
+            <h:outputLabel for="password" value="Senha:" />
+            <p:password id="password" value="#{usuarioBean.user.senha}" required="true" requiredMessage="Por favor, insira a senha." label="Senha" />
+        </h:panelGrid>
+
+        <p:commandButton value="Entrar" action="#{usuarioBean.verificarLogin}" update="messages, loginForm" />
+
+        <p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" />
+        
+        <p:link outcome="cadastro_usuarios" value="Não tem uma conta? Cadastrar"/>
+    </h:form>
+</h:body>
+</html>
