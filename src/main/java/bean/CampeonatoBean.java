@@ -20,7 +20,7 @@ public class CampeonatoBean {
 	private String salvar() {
 		
 		CampeonatoDao.save(campeonato); 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário salvo com sucesso"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato salvo com sucesso"));
         campeonato = new Campeonato();    
        
         return null;
@@ -33,7 +33,7 @@ public class CampeonatoBean {
 	
 	private String atualizar() {
 		CampeonatoDao.update(campeonato);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário atualizado com sucesso"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
 		
 		return null;
@@ -41,7 +41,7 @@ public class CampeonatoBean {
 	
 	private String deletar() {
 		CampeonatoDao.delete(campeonato);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário atualizado com sucesso"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
 		
 		return null;

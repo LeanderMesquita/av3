@@ -21,7 +21,7 @@ public class JogoBean {
 	private String salvar() {
 		
 		JogoDao.save(jogo); 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário salvo com sucesso"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo salvo com sucesso"));
         jogo = new Jogo();    
        
         return null;
@@ -34,7 +34,7 @@ public class JogoBean {
 	
 	private String atualizar() {
 		JogoDao.update(jogo);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário atualizado com sucesso"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
 		jogos = JogoDao.listAll();
 		
 		return null;
@@ -42,7 +42,7 @@ public class JogoBean {
 	
 	private String deletar() {
 		JogoDao.delete(jogo);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário atualizado com sucesso"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
 		jogos = JogoDao.listAll();
 		
 		return null;
