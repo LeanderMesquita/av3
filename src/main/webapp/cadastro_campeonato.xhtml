@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Cadastro de campeonato</title>
+</h:head>
+<h:body>
+    <h:form id="formulario">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:panelGrid columns="2">
+        
+            <p:outputLabel value="Nome do campeonato"/>
+            <p:inputText value="#{campeonatoBean.campeonato.nome}"
+                         required="true"
+                         requiredMessage="o nome é obrigatório no cadastro"/>
+
+
+            <p:commandButton value="Salvar" action="#{campeonatoBean.salvar()}" update="formulario"/>
+            <p:link outcome="opcoes" value="Voltar"/>
+        </p:panelGrid>
+    </h:form>
+</h:body>
+</html>

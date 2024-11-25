@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,13 +16,13 @@ public class JogoDao {
 		Query q = em.createQuery("select jogo from Jogo jogo");
 		List<Jogo> jogos = q.getResultList();
 		em.close();
-		
 		return jogos;
 	}
 		
 	public static void save(Jogo jogo) {
 		EntityManager em = JPAUtil.criarEntityManager();
 		em.getTransaction().begin();
+		jogo.setDataCadastro(new Date());
 		em.persist(jogo);
 		em.getTransaction().commit();
 		em.close();

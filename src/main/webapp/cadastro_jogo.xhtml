@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Cadastro de jogo</title>
+</h:head>
+<h:body>
+    <h:form id="formulario">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Nome Time 1"/>
+            <p:inputText value="#{jogoBean.jogo.time1}"
+                         required="true"
+                         requiredMessage="O time 1 é obrigatório"/>
+
+            <p:outputLabel value="Nome Time 2"/>
+            <p:inputText value="#{jogoBean.jogo.time2}"
+                         required="true"
+                         requiredMessage="O time 2 é obrigatório"/>
+
+            <p:outputLabel value="Gols Time 1"/>
+            <p:inputText id="golsTime1" value="#{jogoBean.jogo.golsTime1}">
+                <f:validateLongRange minimum="0" maximum="100"/>
+            </p:inputText>
+
+            <p:outputLabel value="Gols Time 2"/>
+            <p:inputText id="golsTime2" value="#{jogoBean.jogo.golsTime2}">
+                <f:validateLongRange minimum="0" maximum="100"/>
+            </p:inputText>    
+
+            <p:outputLabel value="Data da partida"/>
+            <p:datePicker id="dataPartida" 
+                          value="#{jogoBean.jogo.dataPartida}" 
+                          pattern="dd/MM/yyyy"
+                          yearRange="1900:2025" 
+                          required="true" 
+                          requiredMessage="Data da partida é obrigatória!"/>
+
+            <p:outputLabel value="Campeonato"/>
+            <p:selectOneMenu id="campeonatoSelect"
+			                 value="#{jogoBean.campeonatoId}" 
+			                 required="true" 
+			                 requiredMessage="Selecione um campeonato!">
+			    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/>
+			    <f:selectItems value="#{campeonatoBean.campeonatos}" var="camp"
+			                   itemValue="#{camp.id}" itemLabel="#{camp.nome}"/>
+			</p:selectOneMenu>
+
+
+            <p:commandButton value="Salvar" action="#{jogoBean.salvar()}" update="formulario"/>
+            <p:link outcome="opcoes" value="Voltar"/>
+        </p:panelGrid>
+    </h:form>
+</h:body>
+</html>

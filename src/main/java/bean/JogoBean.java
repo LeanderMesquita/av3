@@ -8,7 +8,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import dao.CampeonatoDao;
 import dao.JogoDao;
+import entity.Campeonato;
 import entity.Jogo;
 
 
@@ -17,9 +19,11 @@ public class JogoBean {
 
 	private Jogo jogo = new Jogo();
 	private List<Jogo> jogos = new ArrayList<Jogo>();
+	Long campeonatoId;
 	
-	private String salvar() {
-		
+	public String salvar() {
+		Campeonato campeonato = CampeonatoDao.findById(campeonatoId);
+		jogo.setCampeonato(campeonato);
 		JogoDao.save(jogo); 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo salvo com sucesso"));
         jogo = new Jogo();    
@@ -28,11 +32,11 @@ public class JogoBean {
 		
 	}
 	
-	private void prepararAtualizacao(Jogo jogo) {
+	public void prepararAtualizacao(Jogo jogo) {
 		this.jogo = jogo;
 	}
 	
-	private String atualizar() {
+	public String atualizar() {
 		JogoDao.update(jogo);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
 		jogos = JogoDao.listAll();
@@ -40,7 +44,7 @@ public class JogoBean {
 		return null;
 	}
 	
-	private String deletar() {
+	public String deletar() {
 		JogoDao.delete(jogo);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
 		jogos = JogoDao.listAll();
@@ -48,21 +52,31 @@ public class JogoBean {
 		return null;
 	}
 	
-	private Jogo getJogo() {
+	public Jogo getJogo() {
 		return jogo;
 	}
 	
-	private List<Jogo> getJogos() {
+	public List<Jogo> getJogos() {
 		jogos = JogoDao.listAll();
 		
 		return jogos;
 	}
 	
-	private void setJogo(Jogo jogo) {
+	public void setJogo(Jogo jogo) {
 		this.jogo = jogo;
 	}
 	
-	private void setJogos(List<Jogo> jogos) {
+	public void setJogos(List<Jogo> jogos) {
 		this.jogos = jogos;
 	}
+
+	public Long getCampeonatoId() {
+		return campeonatoId;
+	}
+
+	public void setCampeonatoId(Long campeonatoId) {
+		this.campeonatoId = campeonatoId;
+	}
+	
+	
 }

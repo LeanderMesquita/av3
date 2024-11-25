@@ -50,4 +50,13 @@ public class CampeonatoDao {
 		em.close();
 	}
 	
+	public static Campeonato findById(Long id) {
+		EntityManager em = JPAUtil.criarEntityManager();
+        try {
+            return em.find(Campeonato.class, id); 
+        } finally {
+            em.close(); 
+        }
+    }
+	
 }

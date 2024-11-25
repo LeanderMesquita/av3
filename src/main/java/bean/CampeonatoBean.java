@@ -17,7 +17,7 @@ public class CampeonatoBean {
 	private Campeonato campeonato = new Campeonato();
 	private List<Campeonato> campeonatos = new ArrayList<Campeonato>();
 	
-	private String salvar() {
+	public String salvar() {
 		
 		CampeonatoDao.save(campeonato); 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato salvo com sucesso"));
@@ -27,11 +27,11 @@ public class CampeonatoBean {
 		
 	}
 	
-	private void prepararAtualizacao(Campeonato campeonato) {
+	public void prepararAtualizacao(Campeonato campeonato) {
 		this.campeonato = campeonato;
 	}
 	
-	private String atualizar() {
+	public String atualizar() {
 		CampeonatoDao.update(campeonato);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
@@ -39,7 +39,7 @@ public class CampeonatoBean {
 		return null;
 	}
 	
-	private String deletar() {
+	public String deletar() {
 		CampeonatoDao.delete(campeonato);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
@@ -47,21 +47,21 @@ public class CampeonatoBean {
 		return null;
 	}
 	
-	private Campeonato getCampeonato() {
+	public Campeonato getCampeonato() {
 		return campeonato;
 	}
 	
-	private List<Campeonato> getCampeonatos() {
+	public List<Campeonato> getCampeonatos() {
 		campeonatos = CampeonatoDao.listAll();
 		
 		return campeonatos;
 	}
 	
-	private void setCampeonato(Campeonato campeonato) {
+	public void setCampeonato(Campeonato campeonato) {
 		this.campeonato = campeonato;
 	}
 	
-	private void setCampeonatos(List<Campeonato> campeonatos) {
+	public void setCampeonatos(List<Campeonato> campeonatos) {
 		this.campeonatos = campeonatos;
 	}
 }
