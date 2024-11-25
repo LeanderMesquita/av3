@@ -22,6 +22,12 @@ public class JogoBean {
 	Long campeonatoId;
 	
 	public String salvar() {
+		
+		if (jogo.getTime1().equals(jogo.getTime2())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Jogos não podem ser do mesmo nome."));
+			return null;
+		}
+		
 		Campeonato campeonato = CampeonatoDao.findById(campeonatoId);
 		jogo.setCampeonato(campeonato);
 		JogoDao.save(jogo); 
@@ -37,6 +43,14 @@ public class JogoBean {
 	}
 	
 	public String atualizar() {
+		
+		if (jogo.getTime1().equals(jogo.getTime2())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Jogos não podem ser do mesmo nome."));
+			return null;
+		}
+		
+		Campeonato campeonato = CampeonatoDao.findById(campeonatoId);
+		jogo.setCampeonato(campeonato);
 		JogoDao.update(jogo);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
 		jogos = JogoDao.listAll();

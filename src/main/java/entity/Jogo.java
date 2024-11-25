@@ -119,4 +119,12 @@ public class Jogo {
     public void setGolsTime2(Integer golsTime2) {
         this.golsTime2 = golsTime2;
     }
+
+
+	@Override
+	public String toString() {
+		return "Jogo ("+time1+" x " + time2 + "dt: "+dataPartida+")";
+	}
+    
+    
 }

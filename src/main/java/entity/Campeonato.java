@@ -61,5 +61,12 @@ public class Campeonato {
         this.jogos.add(jogo);
         jogo.setCampeonato(this); 
     }
+
+	@Override
+	public String toString() {
+		return "Campeonato " + nome;
+	}
+    
+    
 	
 }

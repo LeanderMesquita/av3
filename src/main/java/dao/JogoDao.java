@@ -34,9 +34,7 @@ public class JogoDao {
 		Jogo jogoToUpdate = em.find(Jogo.class, jogo.getId());
 		
 		jogoToUpdate.setId(jogoToUpdate.getId());
-		jogoToUpdate.setDataCadastro(jogo.getDataCadastro());
 		jogoToUpdate.setDataPartida(jogo.getDataPartida());
-		jogoToUpdate.setCampeonato(jogo.getCampeonato());
 		
 		jogoToUpdate.setTime1(jogo.getTime1());
 		jogoToUpdate.setTime2(jogo.getTime2());
@@ -56,6 +54,17 @@ public class JogoDao {
 		em.remove(jogo);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	public static List<Jogo> listByCampeonato(Long campeonatoId) {
+	    EntityManager em = JPAUtil.criarEntityManager();
+	    try {
+	        Query query = em.createQuery("SELECT j FROM Jogo j WHERE j.campeonato.id = :campeonatoId", Jogo.class);
+	        query.setParameter("campeonatoId", campeonatoId);
+	        return query.getResultList();
+	    } finally {
+	        em.close();
+	    }
 	}
 	
 	

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head><title>Lista de Jogos</title></h:head>
+<h:body>
+
+    
+    <h:form id="formulario">
+
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <p:dataTable value="#{jogoBean.jogos}" var="jogo" editable="true">
+        
+            <p:column headerText="Time 1">
+                <p:outputLabel value="#{jogo.time1}" />
+            </p:column>
+            
+            <p:column headerText="Time 2">
+                <p:outputLabel value="#{jogo.time2}" />
+            </p:column>
+            
+            <p:column headerText="Gols time 1" style="width: 30px;">
+               	<h:outputText value="#{jogo.golsTime1}" />
+            </p:column>
+            
+            <p:column headerText="Gols time 2" style="width: 30px;">
+               	<h:outputText value="#{jogo.golsTime2}" />
+            </p:column>
+            
+            <p:column headerText="Campeonato">
+                <p:outputLabel value="#{jogo.campeonato}" />
+            </p:column>
+            
+            <p:column headerText="Data da partida">
+                <p:outputLabel value="#{jogo.dataPartida}">
+                </p:outputLabel>
+            </p:column>
+
+            <p:column headerText="Ações">
+                <p:commandButton value="Editar"
+                                 update=":formulario :dialogEditar"
+                                 oncomplete="PF('dialogEditar').show()"
+                                 actionListener="#{jogoBean.prepararAtualizacao(jogo)}"
+                                 style="margin-right:10px"/>
+
+                <p:commandButton value="Deletar"
+                                 update=":formulario"
+                                 action="#{jogoBean.deletar(jogo)}"
+                                 onclick="return confirm('Tem certeza que deseja deletar este jogo?');" />
+            </p:column>
+        </p:dataTable>
+
+    </h:form>
+    
+    <p:link outcome="opcoes" value="Voltar" />
+   
+    <p:dialog header="Atualizar jogo" widgetVar="dialogEditar" modal="true" id="dialogEditar" resizable="false" appendTo="@(body)" closeOnEscape="true">
+        <h:form id="editarjogoForm">
+        
+        	<h:inputHidden id="id" value="#{jogoBean.jogo.id}" />
+            
+            <h:panelGrid columns="2" cellpadding="5">
+	            <p:outputLabel value="Nome Time 1"/>
+	            <p:inputText value="#{jogoBean.jogo.time1}"
+	                         required="true"
+	                         requiredMessage="O time 1 é obrigatório"/>
+	
+	            <p:outputLabel value="Nome Time 2"/>
+	            <p:inputText value="#{jogoBean.jogo.time2}"
+	                         required="true"
+	                         requiredMessage="O time 2 é obrigatório"/>
+	
+	            <p:outputLabel value="Gols Time 1"/>
+	            <p:inputText id="golsTime1" value="#{jogoBean.jogo.golsTime1}">
+	                <f:validateLongRange minimum="0" maximum="100"/>
+	            </p:inputText>
+	
+	            <p:outputLabel value="Gols Time 2"/>
+	            <p:inputText id="golsTime2" value="#{jogoBean.jogo.golsTime2}">
+	                <f:validateLongRange minimum="0" maximum="100"/>
+	            </p:inputText>    
+	
+	            <p:outputLabel value="Data da partida"/>
+	            <p:datePicker id="dataPartida" 
+	                          value="#{jogoBean.jogo.dataPartida}" 
+	                          pattern="dd/MM/yyyy"
+	                          yearRange="1900:2025" 
+	                          required="true" 
+	                          requiredMessage="Data da partida é obrigatória!"/>
+	
+	            <p:outputLabel value="Campeonato"/>
+	            <p:selectOneMenu id="campeonatoSelect"
+				                 value="#{jogoBean.campeonatoId}" 
+				                 required="true" 
+				                 requiredMessage="Selecione um campeonato!">
+				    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/>
+				    <f:selectItems value="#{campeonatoBean.campeonatos}" var="camp"
+				                   itemValue="#{camp.id}" itemLabel="#{camp.nome}"/>
+				</p:selectOneMenu>
+	
+        	</h:panelGrid>
+			
+            <p:commandButton value="Atualizar" update=":formulario" action="#{jogoBean.atualizar}" oncomplete="PF('dialogEditar').hide()" />
+        </h:form>
+    </p:dialog>
+
+</h:body>
+</html>

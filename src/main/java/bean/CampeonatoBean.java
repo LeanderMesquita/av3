@@ -9,13 +9,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import dao.CampeonatoDao;
+import dao.JogoDao;
 import entity.Campeonato;
+import entity.Jogo;
 
 @ManagedBean
 public class CampeonatoBean {
 	
 	private Campeonato campeonato = new Campeonato();
 	private List<Campeonato> campeonatos = new ArrayList<Campeonato>();
+	private List<Jogo> jogos = new ArrayList<Jogo>();
 	
 	public String salvar() {
 		
@@ -47,6 +50,16 @@ public class CampeonatoBean {
 		return null;
 	}
 	
+	
+	public void carregarJogos(Campeonato campeonato) {
+        this.campeonato = campeonato; 
+        this.jogos = JogoDao.listByCampeonato(campeonato.getId()); 
+        if (jogos.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, 
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Nenhum jogo associado a este campeonato."));
+        }
+    }
+	
 	public Campeonato getCampeonato() {
 		return campeonato;
 	}
@@ -64,4 +77,14 @@ public class CampeonatoBean {
 	public void setCampeonatos(List<Campeonato> campeonatos) {
 		this.campeonatos = campeonatos;
 	}
+
+	public List<Jogo> getJogos() {
+		return jogos;
+	}
+
+	public void setJogos(List<Jogo> jogos) {
+		this.jogos = jogos;
+	}
+	
+	
 }
