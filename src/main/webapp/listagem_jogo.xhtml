@@ -68,15 +68,26 @@
         	<h:inputHidden id="id" value="#{jogoBean.jogo.id}" />
             
             <h:panelGrid columns="2" cellpadding="5">
-	            <p:outputLabel value="Nome Time 1"/>
-	            <p:inputText value="#{jogoBean.jogo.time1}"
-	                         required="true"
-	                         requiredMessage="O time 1 é obrigatório"/>
-	
-	            <p:outputLabel value="Nome Time 2"/>
-	            <p:inputText value="#{jogoBean.jogo.time2}"
-	                         required="true"
-	                         requiredMessage="O time 2 é obrigatório"/>
+	                
+	            <p:outputLabel value="Time 1"/>
+	            <p:selectOneMenu id="time1Select"
+				                 value="#{jogoBean.time1Id}" 
+				                 required="true" 
+				                 requiredMessage="Selecione um time!">
+				    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/>
+				    <f:selectItems value="#{timeBean.times}" var="time"
+				                   itemValue="#{time.id}" itemLabel="#{time.nome}"/>
+				</p:selectOneMenu>
+			
+				<p:outputLabel value="Time 2"/>
+	            <p:selectOneMenu id="time2Select"
+				                 value="#{jogoBean.time2Id}" 
+				                 required="true" 
+				                 requiredMessage="Selecione um time!">
+				    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"/>
+				    <f:selectItems value="#{timeBean.times}" var="time"
+				                   itemValue="#{time.id}" itemLabel="#{time.nome}"/>
+				</p:selectOneMenu>
 	
 	            <p:outputLabel value="Gols Time 1"/>
 	            <p:inputText id="golsTime1" value="#{jogoBean.jogo.golsTime1}">

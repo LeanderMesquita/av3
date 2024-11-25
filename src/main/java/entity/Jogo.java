@@ -1,12 +1,15 @@
 package entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,37 +18,46 @@ import javax.persistence.TemporalType;
 public class Jogo {
 
 	@Id
-	@GeneratedValue
-	private Integer id;
-	
-	@Temporal(TemporalType.DATE)
+    @GeneratedValue
+    private Integer id;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_partida", nullable = false)
     private Date dataPartida;
-	
-	@Temporal(TemporalType.DATE)
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_cadastro", nullable = false)
     private Date dataCadastro;
-	
-	@Column(nullable = false)
-    private String time1; 
-	
-	@Column(nullable = false)
-    private String time2; 
-	
-	@ManyToOne
-	@JoinColumn(name = "campeonato_id", nullable = false)
-    private Campeonato campeonato; 
-	
-	@Column(name = "gols_time1")
+
+    @ManyToOne
+    @JoinColumn(name = "time1_id", nullable = false)
+    private Time time1;
+
+    @ManyToOne
+    @JoinColumn(name = "time2_id", nullable = false)
+    private Time time2;
+
+    @ManyToOne
+    @JoinColumn(name = "campeonato_id", nullable = false)
+    private Campeonato campeonato;
+
+    @Column(name = "gols_time1")
     private Integer golsTime1;
-	
-	@Column(name = "gols_time2")
+
+    @Column(name = "gols_time2")
     private Integer golsTime2;
+
+    @ManyToMany
+    @JoinTable(
+        name = "jogo_time",
+        joinColumns = @JoinColumn(name = "jogo_id"),
+        inverseJoinColumns = @JoinColumn(name = "time_id")
+    )
+    private List<Time> times;
 
     public Jogo() {}
 
-    
-    public Jogo(Integer id, Date dataPartida, Date dataCadastro, String time1, String time2, Integer golsTime1, Integer golsTime2) {
+    public Jogo(Integer id, Date dataPartida, Date dataCadastro, Time time1, Time time2, Integer golsTime1, Integer golsTime2) {
         this.id = id;
         this.dataPartida = dataPartida;
         this.dataCadastro = dataCadastro;
@@ -55,7 +67,6 @@ public class Jogo {
         this.golsTime2 = golsTime2;
     }
 
-   
     public Integer getId() {
         return id;
     }
@@ -80,19 +91,19 @@ public class Jogo {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getTime1() {
+    public Time getTime1() {
         return time1;
     }
 
-    public void setTime1(String time1) {
+    public void setTime1(Time time1) {
         this.time1 = time1;
     }
 
-    public String getTime2() {
+    public Time getTime2() {
         return time2;
     }
 
-    public void setTime2(String time2) {
+    public void setTime2(Time time2) {
         this.time2 = time2;
     }
 
@@ -120,11 +131,16 @@ public class Jogo {
         this.golsTime2 = golsTime2;
     }
 
+    public List<Time> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Time> times) {
+        this.times = times;
+    }
 
 	@Override
 	public String toString() {
-		return "Jogo ("+time1+" x " + time2 + "dt: "+dataPartida+")";
+		return "Jogo (" + time1 + " x " + time2 + " dt: " + dataPartida + ")";
 	}
-    
-    
-}
+} 
