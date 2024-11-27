@@ -47,13 +47,6 @@ public class Jogo {
     @Column(name = "gols_time2")
     private Integer golsTime2;
 
-    @ManyToMany
-    @JoinTable(
-        name = "jogo_time",
-        joinColumns = @JoinColumn(name = "jogo_id"),
-        inverseJoinColumns = @JoinColumn(name = "time_id")
-    )
-    private List<Time> times;
 
     public Jogo() {}
 
@@ -129,14 +122,6 @@ public class Jogo {
 
     public void setGolsTime2(Integer golsTime2) {
         this.golsTime2 = golsTime2;
-    }
-
-    public List<Time> getTimes() {
-        return times;
-    }
-
-    public void setTimes(List<Time> times) {
-        this.times = times;
     }
 
 	@Override

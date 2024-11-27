@@ -36,7 +36,6 @@ public class TimeDao {
 		timeToUpdate.setEmpates(time.getEmpates());
 		timeToUpdate.setNome(time.getNome());
 		timeToUpdate.setVitorias(time.getVitorias());
-		timeToUpdate.setJogos(time.getJogos());
 		timeToUpdate.setSaldoDeGols(time.getSaldoDeGols());
 		
 		em.merge(timeToUpdate);

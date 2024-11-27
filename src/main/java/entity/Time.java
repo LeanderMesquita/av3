@@ -1,115 +1,129 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Time {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	
-	private String nome;
-	private Integer saldoDeGols;
-	private Integer vitorias;
-	private Integer derrotas;
-	private Integer empates;
-	private Integer pontuacao;
-	
-	@ManyToMany(mappedBy = "times")
-	private List<Jogo> jogos;
-	
-	public Time(Long id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.pontuacao = 0;
-	}
-	
-	public Time() {
-		this.jogos = new ArrayList<Jogo>();
-	}
-	
-	public void calcularPontuacao() {
-		int totalVitorias = vitorias != null ? vitorias : 0;
-		int totalEmpates = empates != null ? empates : 0;
-		this.pontuacao = (totalVitorias * 3) + (totalEmpates * 1);
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    private String nome;
+    private Integer saldoDeGols;
+    private Integer vitorias;
+    private Integer derrotas;
+    private Integer empates;
+    private Integer pontuacao;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @OneToMany(mappedBy = "time1")
+    private List<Jogo> jogosComoTime1;
 
-	public String getNome() {
-		return nome;
-	}
+    @OneToMany(mappedBy = "time2")
+    private List<Jogo> jogosComoTime2;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public Time(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+        this.pontuacao = 0;
+        this.derrotas = 0;
+        this.empates = 0;
+        this.vitorias = 0;
+        this.saldoDeGols = 0;
+    }
 
-	public Integer getSaldoDeGols() {
-		return saldoDeGols;
-	}
+    public Time() {
+        this.pontuacao = 0;
+        this.derrotas = 0;
+        this.empates = 0;
+        this.vitorias = 0;
+        this.saldoDeGols = 0;
+    }
 
-	public void setSaldoDeGols(Integer saldoDeGols) {
-		this.saldoDeGols = saldoDeGols;
-	}
+    public void calcularPontuacao() {
+        int totalVitorias = vitorias != null ? vitorias : 0;
+        int totalEmpates = empates != null ? empates : 0;
+        this.pontuacao = (totalVitorias * 3) + (totalEmpates * 1);
+    }
 
-	public Integer getVitorias() {
-		return vitorias;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setVitorias(Integer vitorias) {
-		this.vitorias = vitorias;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Integer getDerrotas() {
-		return derrotas;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setDerrotas(Integer derrotas) {
-		this.derrotas = derrotas;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public Integer getEmpates() {
-		return empates;
-	}
+    public Integer getSaldoDeGols() {
+        return saldoDeGols;
+    }
 
-	public void setEmpates(Integer empates) {
-		this.empates = empates;
-	}
+    public void setSaldoDeGols(Integer saldoDeGols) {
+        this.saldoDeGols = saldoDeGols;
+    }
 
-	public Integer getPontuacao() {
-		return pontuacao;
-	}
+    public Integer getVitorias() {
+        return vitorias;
+    }
 
-	public void setPontuacao(Integer pontuacao) {
-		this.pontuacao = pontuacao;
-	}
+    public void setVitorias(Integer vitorias) {
+        this.vitorias = vitorias;
+    }
 
-	public List<Jogo> getJogos() {
-		return jogos;
-	}
+    public Integer getDerrotas() {
+        return derrotas;
+    }
 
-	public void setJogos(List<Jogo> jogos) {
-		this.jogos = jogos;
-	}
+    public void setDerrotas(Integer derrotas) {
+        this.derrotas = derrotas;
+    }
 
-	@Override
-	public String toString() {
-		return nome;
-	}
-	
-	
+    public Integer getEmpates() {
+        return empates;
+    }
+
+    public void setEmpates(Integer empates) {
+        this.empates = empates;
+    }
+
+    public Integer getPontuacao() {
+        return pontuacao;
+    }
+
+    public void setPontuacao(Integer pontuacao) {
+        this.pontuacao = pontuacao;
+    }
+
+    public List<Jogo> getJogosComoTime1() {
+        return jogosComoTime1;
+    }
+
+    public void setJogosComoTime1(List<Jogo> jogosComoTime1) {
+        this.jogosComoTime1 = jogosComoTime1;
+    }
+
+    public List<Jogo> getJogosComoTime2() {
+        return jogosComoTime2;
+    }
+
+    public void setJogosComoTime2(List<Jogo> jogosComoTime2) {
+        this.jogosComoTime2 = jogosComoTime2;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

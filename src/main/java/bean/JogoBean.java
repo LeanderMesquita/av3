@@ -40,6 +40,11 @@ public class JogoBean {
 		jogo.setTime1(time1);
 		jogo.setTime2(time2);
 		
+		setTimeMetricas(time1, jogo);
+		TimeDao.update(time1);
+		setTimeMetricas(time2, jogo);
+		TimeDao.update(time2);
+		
 		JogoDao.save(jogo); 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo salvo com sucesso"));
         jogo = new Jogo();    
@@ -66,6 +71,11 @@ public class JogoBean {
 		jogo.setCampeonato(campeonato);
 		jogo.setTime1(time1);
 		jogo.setTime2(time2);
+		
+		setTimeMetricas(time1, jogo);
+		TimeDao.update(time1);
+		setTimeMetricas(time2, jogo);
+		TimeDao.update(time2);
 		
 		JogoDao.update(jogo);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
@@ -124,5 +134,30 @@ public class JogoBean {
 		this.time2Id = time2Id;
 	}
 	
+	public void setTimeMetricas(Time time, Jogo jogo) {
+	    if (time.getNome().equals(jogo.getTime1().getNome())) {
+	        time.setSaldoDeGols(time.getSaldoDeGols() + jogo.getGolsTime1());
+
+	        if (jogo.getGolsTime1() < jogo.getGolsTime2()) {
+	            time.setDerrotas(time.getDerrotas() + 1);
+	        } else if (jogo.getGolsTime1().equals(jogo.getGolsTime2())) {
+	            time.setEmpates(time.getEmpates() + 1);
+	        } else {
+	            time.setVitorias(time.getVitorias() + 1);
+	        }
+
+	    } else {
+	        time.setSaldoDeGols(time.getSaldoDeGols() + jogo.getGolsTime2());
+
+	        if (jogo.getGolsTime2() < jogo.getGolsTime1()) {
+	            time.setDerrotas(time.getDerrotas() + 1);
+	        } else if (jogo.getGolsTime1().equals(jogo.getGolsTime2())) {
+	            time.setEmpates(time.getEmpates() + 1);
+	        } else {
+	            time.setVitorias(time.getVitorias() + 1);
+	        }
+	    }
+	}
+
 	
 }
