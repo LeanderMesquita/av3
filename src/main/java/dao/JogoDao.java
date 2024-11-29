@@ -67,5 +67,18 @@ public class JogoDao {
 	    }
 	}
 	
+	public static List<Jogo> findAllGamesByTimeId(Long timeId) {
+        EntityManager em = JPAUtil.criarEntityManager();
+        List<Jogo> jogos = null;
+        try {
+            Query query = em.createNamedQuery("Jogo.findAllGamesByTimeId", Jogo.class);
+            query.setParameter("timeId", timeId);
+            jogos = query.getResultList();
+        } finally {
+            em.close();
+        }
+        return jogos;
+    }
+	
 	
 }

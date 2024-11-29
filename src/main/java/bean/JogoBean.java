@@ -24,6 +24,11 @@ public class JogoBean {
 	Long campeonatoId;
 	Long time1Id;
 	Long time2Id;
+	Long timeId;
+	
+	 public JogoBean() {
+	        jogos = new ArrayList<>();
+	    }
 	
 	public String salvar() {
 		
@@ -84,21 +89,32 @@ public class JogoBean {
 		return null;
 	}
 	
-	public String deletar() {
+	public String deletar(Jogo jogo) {
 		JogoDao.delete(jogo);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo atualizado com sucesso"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Jogo deletado com sucesso"));
 		jogos = JogoDao.listAll();
 		
 		return null;
 	}
+	
+	public void filtrarJogosPorTime() {
+		if (timeId != null) {
+            jogos = JogoDao.findAllGamesByTimeId(timeId);
+        } else {
+        	jogos = new ArrayList<>();
+        }
+    }
+	
 	
 	public Jogo getJogo() {
 		return jogo;
 	}
 	
 	public List<Jogo> getJogos() {
-		jogos = JogoDao.listAll();
-		
+		String pagina = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        if (pagina.contains("listagem_jogo")) {
+            jogos = JogoDao.listAll();
+        }
 		return jogos;
 	}
 	
@@ -134,6 +150,14 @@ public class JogoBean {
 		this.time2Id = time2Id;
 	}
 	
+	public Long getTimeId() {
+		return timeId;
+	}
+
+	public void setTimeId(Long timeId) {
+		this.timeId = timeId;
+	}
+
 	public void setTimeMetricas(Time time, Jogo jogo) {
 	    if (time.getNome().equals(jogo.getTime1().getNome())) {
 	        time.setSaldoDeGols(time.getSaldoDeGols() + jogo.getGolsTime1());
