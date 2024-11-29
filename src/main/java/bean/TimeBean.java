@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.persistence.PersistenceException;
 
 import dao.TimeDao;
 import entity.Time;
@@ -31,18 +32,27 @@ public class TimeBean {
 	}
 	
 	public String atualizar() {
+		try {
+			TimeDao.update(time);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Time atualizado com sucesso"));
+			times = TimeDao.listAll();
+		}
+		catch(PersistenceException  e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Não se pode atualizar o nome enquanto tiver jogo ativo."));
+		}
 		
-		TimeDao.update(time);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Time atualizado com sucesso"));
-		times = TimeDao.listAll();
 		
 		return null;
 	}
 	
-	public String deletar() {
-		TimeDao.delete(time);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Time atualizado com sucesso"));
-		times = TimeDao.listAll();
+	public String deletar(Time time) {
+		try {
+			TimeDao.delete(time);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Time deletado com sucesso"));
+			times = TimeDao.listAll();
+		}catch(PersistenceException  e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Time ainda possui jogos ativos, exclua os jogos!"));
+		}
 		
 		return null;
 	}

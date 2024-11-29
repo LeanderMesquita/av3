@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.persistence.PersistenceException;
 
 import dao.CampeonatoDao;
 import dao.JogoDao;
@@ -35,6 +36,7 @@ public class CampeonatoBean {
 	}
 	
 	public String atualizar() {
+	
 		CampeonatoDao.update(campeonato);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
@@ -42,7 +44,8 @@ public class CampeonatoBean {
 		return null;
 	}
 	
-	public String deletar() {
+	public String deletar(Campeonato campeonato) {
+		
 		CampeonatoDao.delete(campeonato);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Campeonato atualizado com sucesso"));
 		campeonatos = CampeonatoDao.listAll();
